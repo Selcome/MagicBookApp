@@ -40,6 +40,8 @@ public class Detector {
 		timer = new Timer();
 		timer.schedule(new DetectTimerTask(), DELAY_START_DETECT_MOVE,
 				DETECT_MOVE_INTERVAL);
+		
+		init();
 	}
 
 	public void stop() {
@@ -51,6 +53,8 @@ public class Detector {
 				Looper.myLooper().quit();
 			}
 		});
+		
+		clear();
 	}
 
 	private void detectMove() {
@@ -62,6 +66,8 @@ public class Detector {
 		}
 	}
 	
+	private native void init();
+	private native void clear();
 	private native boolean detectMove(byte[] currentFrame);
 
 	class LooperThread extends Thread {
