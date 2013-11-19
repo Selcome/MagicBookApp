@@ -22,8 +22,8 @@ public class Detector {
 	private boolean buzy;
 
 	private DetectListener detectListener;
-	
-	static{
+
+	static {
 		System.loadLibrary("Detector");
 	}
 
@@ -31,6 +31,8 @@ public class Detector {
 		this.detectData = detectData;
 		this.detectListener = detectListener;
 	}
+
+	public native void setSize(int width, int height);
 
 	public void start() {
 		Log.d(TAG, "move detector start..");
@@ -40,7 +42,7 @@ public class Detector {
 		timer = new Timer();
 		timer.schedule(new DetectTimerTask(), DELAY_START_DETECT_MOVE,
 				DETECT_MOVE_INTERVAL);
-		
+
 		init();
 	}
 
@@ -53,7 +55,7 @@ public class Detector {
 				Looper.myLooper().quit();
 			}
 		});
-		
+
 		clear();
 	}
 
@@ -65,9 +67,11 @@ public class Detector {
 			detectMove(null);
 		}
 	}
-	
+
 	private native void init();
+
 	private native void clear();
+
 	private native boolean detectMove(byte[] currentFrame);
 
 	class LooperThread extends Thread {

@@ -7,3 +7,5 @@ LOCAL_MODULE    := Detector
 LOCAL_SRC_FILES := Detector.cpp
 APP_STL:=stlport_static
 include $(BUILD_SHARED_LIBRARY)
+
+ APP_OPTIM := debug

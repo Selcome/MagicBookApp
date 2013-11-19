@@ -74,6 +74,7 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 
 		detector = new Detector(this,this);
 		detector.start();
+		detector.setSize(1920, 1080);//TODO 修改
 
 		Log.d(TAG, "surface changed.");
 	}
