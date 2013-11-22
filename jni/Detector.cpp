@@ -37,6 +37,7 @@ JNIEXPORT jboolean JNICALL Java_marshal_magicbookapp_Detector_detectMove(
 		JNIEnv *env, jobject thiz, jbyteArray data) {
 	jbyte* yuv = env->GetByteArrayElements(data, 0);
 	detector->setCurrentFrame((unsigned char *) yuv);
+	env->ReleaseByteArrayElements(data, yuv, 0);
 	return (jboolean) detector->detectMove();
 }
 
@@ -47,8 +48,7 @@ JNIEXPORT void JNICALL Java_marshal_magicbookapp_Detector_setSize(JNIEnv * env,
 
 SimpleDetector::SimpleDetector() {
 	LOGI("------->>>创建detector对象");
-	this->height=this->width=0;
-	this->currentMat=this->previousMat=0;
+	width = height = 0;
 }
 
 SimpleDetector::~SimpleDetector() {
@@ -56,18 +56,23 @@ SimpleDetector::~SimpleDetector() {
 }
 
 bool SimpleDetector::detectMove() {
-	if(this->previousMat){
-
-	}
-	this->previousMat=this->currentMat;
+//	previousMat = currentMat;
 	return true;
 }
 
 void SimpleDetector::setCurrentFrame(unsigned char * frame) {
-	this->currentMat=new Mat(this->height,this->width,CV_8UC1,frame);//我现在不确认旧的mat是不是被正确的释放了，至少系统可维持很长时间，看起来是释放了。
+	if (height == 0) {
+		return;
+	}
+	Mat mat(height, width, CV_8UC1, frame);
+
+	Size dsize = Size((int)(mat.cols * SIZE_FACTOR), (int)(mat.rows * SIZE_FACTOR));
+	currentMat = Mat(dsize, CV_8UC1);
+//	LOGI(">>>>>>>>set current frame, w:%i, h:%i", dsize.width, dsize.height);
+	resize(mat, currentMat, dsize);
 }
 
 void SimpleDetector::setSize(int width, int height) {
-	this->width=width;
-	this->height=height;
+	this->width = width;
+	this->height = height;
 }

@@ -62,9 +62,10 @@ public class Detector {
 	private void detectMove() {
 		Log.d(TAG, "detector move..");
 
-		if (detectListener != null) {
+		if (detectListener != null && 
+				detectData.getCurrentFrame()!=null) {//有可能检查移动的操作快于帧数据的设置
 			detectListener.onMoveDetected();
-			detectMove(null);
+			detectMove(detectData.getCurrentFrame());
 		}
 	}
 

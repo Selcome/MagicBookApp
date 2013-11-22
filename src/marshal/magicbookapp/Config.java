@@ -15,6 +15,10 @@ public final class Config {
 	public static final long DELAY_START_DETECT_MOVE=100;
 	
 	public static final long DETECT_MOVE_INTERVAL=500;
+	
+	public static final int CAMERA_PREVIEW_WIDTH=1920;
+	
+	public static final int CAMERA_PREVIEW_HEIGHT=1080;
 
 	private Config() {
 	}

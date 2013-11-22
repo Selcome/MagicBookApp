@@ -45,11 +45,8 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 
 		Camera.Parameters params = camera.getParameters();
 
-		// 处理预览图片长宽比，这里固定写法仅为支持Galaxy S4 TODO 还是要自动化，因为其他设备也要能测试使用
-		// params.setPictureSize(1280, 720);
-		// params.setPictureSize(320, 240);
-		params.setPreviewSize(1920, 1080);
-		// params.setPreviewSize(320, 240);
+		//暂不支持自动适配，需要设置长宽的常量
+		params.setPreviewSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT);
 
 		// 处理自动对焦参数
 		List<String> focusModes = params.getSupportedFocusModes();
@@ -74,7 +71,7 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 
 		detector = new Detector(this,this);
 		detector.start();
-		detector.setSize(1920, 1080);//TODO 修改
+		detector.setSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT);
 
 		Log.d(TAG, "surface changed.");
 	}

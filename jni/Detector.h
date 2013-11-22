@@ -15,7 +15,8 @@ using namespace cv;
 class SimpleDetector {
 private:
 	int width, height;
-	Mat *previousMat,*currentMat;
+	Mat previousMat,currentMat;
+	static const float SIZE_FACTOR=.3;
 public:
 	SimpleDetector();
 	~SimpleDetector();
