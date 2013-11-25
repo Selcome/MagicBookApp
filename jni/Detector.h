@@ -17,6 +17,7 @@ private:
 	int width, height;
 	Mat previousMat,currentMat;
 	static const float SIZE_FACTOR=.3;
+	vector<Point2f> trackPrevPoints, trackNewPoints, offsetPoints;
 public:
 	SimpleDetector();
 	~SimpleDetector();
