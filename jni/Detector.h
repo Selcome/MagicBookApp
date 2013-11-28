@@ -12,19 +12,32 @@
 
 using namespace cv;
 
-class SimpleDetector {
+class MoveDetector {
 private:
 	int width, height;
-	Mat previousMat,currentMat;
-	static const float SIZE_FACTOR=.3;
+	Mat previousMat, currentMat;
+	static const float SIZE_FACTOR = .3;
 	vector<Point2f> trackPrevPoints, trackNewPoints, offsetPoints;
 public:
-	SimpleDetector();
-	~SimpleDetector();
+	MoveDetector();
+	~MoveDetector();
 
 	void setCurrentFrame(unsigned char * frame);
 	void setSize(int width, int height);
 	bool detectMove();
+	Mat getCurrentMat();
+	Mat getPreviousMat();
+};
+
+class MatchDetector {
+private:
+	Mat templateMat;
+public:
+	MatchDetector();
+	~MatchDetector();
+
+	void setMatchData(Mat mat); //先用第一个Mat做测试
+	int detectMatch(Mat mat);
 };
 
 #endif /* DETECTOR_H_ */

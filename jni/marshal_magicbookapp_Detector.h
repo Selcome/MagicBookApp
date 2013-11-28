@@ -7,7 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /*
  * Class:     marshal_magicbookapp_Detector
  * Method:    setSize
@@ -38,6 +37,14 @@ JNIEXPORT void JNICALL Java_marshal_magicbookapp_Detector_clear
  * Signature: ([B)Z
  */
 JNIEXPORT jboolean JNICALL Java_marshal_magicbookapp_Detector_detectMove
+  (JNIEnv *, jobject, jbyteArray);
+
+/*
+ * Class:     marshal_magicbookapp_Detector
+ * Method:    detectMatch
+ * Signature: ([B)I
+ */
+JNIEXPORT jint JNICALL Java_marshal_magicbookapp_Detector_detectMatch
   (JNIEnv *, jobject, jbyteArray);
 
 #ifdef __cplusplus

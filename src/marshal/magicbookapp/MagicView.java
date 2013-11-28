@@ -1,9 +1,9 @@
 package marshal.magicbookapp;
 
-import static marshal.magicbookapp.Config.CAMERA_ID;
 import static marshal.magicbookapp.Config.*;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
-		PreviewCallback,DetectData,DetectListener {
+		PreviewCallback, DetectData, DetectListener {
 
 	private Camera camera;
 
@@ -45,7 +45,7 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 
 		Camera.Parameters params = camera.getParameters();
 
-		//暂不支持自动适配，需要设置长宽的常量
+		// 暂不支持自动适配，需要设置长宽的常量
 		params.setPreviewSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT);
 
 		// 处理自动对焦参数
@@ -69,7 +69,7 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 
 		camera.startPreview();
 
-		detector = new Detector(this,this);
+		detector = new Detector(this, this);
 		detector.start();
 		detector.setSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT);
 
@@ -95,8 +95,8 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 		camera.stopPreview();
 		camera.release();
 		Log.d(TAG, "surface destroyed.");
-		
-		currentFrame=null;
+
+		currentFrame = null;
 	}
 
 	class FrameTimerTask extends TimerTask {
@@ -125,8 +125,14 @@ public class MagicView extends SurfaceView implements SurfaceHolder.Callback,
 	public void onMoveDetected() {
 		Log.d(TAG, "detect move, view refresh.");
 	}
-}
 
-interface DetectData{
-	byte[] getCurrentFrame();
+	@Override
+	public void onMatchDetected(int detectIndex) {
+		Log.d(TAG, "detect match, index: " + detectIndex);
+	}
+
+	@Override
+	public Iterator getMatchImages() {
+		return null;
+	}
 }
